@@ -6,10 +6,18 @@
 
 * **GitHub Pages documentation/demo:** https://p-e-w.github.io/heretic/
 * **Repository:** https://github.com/p-e-w/heretic
+* **API intervention source package:** `src/heretic/api_intervention/`
 
 ## What's new and why it was added
 
 Heretic now includes an **API intervention middleware toolkit** (`heretic.api_intervention`) for teams operating hosted LLM gateways. This was added to support practical operations workflows (triage, observability, and defensive analysis) where teams want reusable middleware building blocks around API calls.
+
+In short, the new package exists to provide a clean, testable middleware layer for:
+
+* classifying prompt risk before an API call,
+* generating compliance-oriented rewrites when needed,
+* dispatching parallel prompt branches safely,
+* and selecting the best response with explicit verification rules.
 
 ### API intervention components and functions
 
@@ -29,6 +37,14 @@ Heretic now includes an **API intervention middleware toolkit** (`heretic.api_in
 * **End-to-end orchestration**
   * `InterventionPipeline.analyze_risk(prompt)`
   * `InterventionPipeline.run(prompt, call_api)`
+
+### Stop-slop design principles used in this package
+
+* **Deterministic behavior:** explicit thresholds and scoring paths.
+* **Small focused modules:** analyzer/rewriter/executor/verifier/pipeline split.
+* **Typed interfaces:** shared dataclasses for risk/branch/verification records.
+* **Composable integration:** pluggable embedding provider and API caller.
+* **Defensive framing:** middleware is documented for compliance-oriented workflows.
 
 > These components are for defensive/compliance-oriented gateway engineering and documentation; they are not intended to bypass provider policies.
 

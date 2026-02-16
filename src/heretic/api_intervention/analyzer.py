@@ -85,6 +85,7 @@ class SemanticRiskAnalyzer:
     embed: EmbeddingProvider
     refusal_archetypes: list[str]
     threshold: float = 0.85
+    _refusal_centroid: list[float] = field(init=False, repr=False)
 
     def __post_init__(self) -> None:
         archetype_vectors = [self.embed(text) for text in self.refusal_archetypes]

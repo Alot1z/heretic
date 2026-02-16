@@ -27,6 +27,11 @@
     <main class="container">
       <section class="card">
         <h2>Pipeline</h2>
+        <p>
+          This GitHub Pages site exists to explain why the API middleware was
+          added: to provide a reusable, auditable layer around hosted LLM API
+          calls for risk triage, observability, and response quality checks.
+        </p>
         <ol class="pipeline-list">
           <li><strong>Phase 1:</strong> Heuristic + semantic risk analysis</li>
           <li><strong>Phase 2:</strong> Compliance-oriented intent reframing</li>
@@ -65,6 +70,15 @@
           <li><code>src/heretic/api_intervention/executor.py</code></li>
           <li><code>src/heretic/api_intervention/verifier.py</code></li>
           <li><code>src/heretic/api_intervention/pipeline.py</code></li>
+        </ul>
+        <h3>Key public functions</h3>
+        <ul>
+          <li><code>HeuristicRiskAnalyzer.analyze(prompt)</code></li>
+          <li><code>SemanticRiskAnalyzer.analyze(prompt, base_profile)</code></li>
+          <li><code>IntentRewriter.generate_branch_set(prompt, risk)</code></li>
+          <li><code>BranchExecutor.execute(prompts, call_api)</code></li>
+          <li><code>ResponseVerifier.select_best(prompt, responses)</code></li>
+          <li><code>InterventionPipeline.run(prompt, call_api)</code></li>
         </ul>
       </section>
     </main>

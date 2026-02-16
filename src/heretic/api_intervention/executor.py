@@ -13,19 +13,29 @@ class BranchExecutor:
     max_workers: int = 3
 
     def execute(self, prompts: list[str], call_api: ApiCaller) -> list[BranchResponse]:
-        responses: list[BranchResponse] = []
+        if not prompts:
+            return []
+
+        # Keep the returned list aligned with the input prompt order for
+        # deterministic downstream behavior.
+        responses: list[BranchResponse | None] = [None] * len(prompts)
 
         with ThreadPoolExecutor(max_workers=min(self.max_workers, len(prompts))) as pool:
-            futures = {pool.submit(call_api, prompt): prompt for prompt in prompts}
+            futures = {
+                pool.submit(call_api, prompt): (index, prompt)
+                for index, prompt in enumerate(prompts)
+            }
 
             for future in as_completed(futures):
-                prompt = futures[future]
+                index, prompt = futures[future]
                 try:
                     content = future.result()
-                    responses.append(BranchResponse(prompt=prompt, content=content))
+                    responses[index] = BranchResponse(prompt=prompt, content=content)
                 except Exception as error:  # noqa: BLE001
-                    responses.append(
-                        BranchResponse(prompt=prompt, content=None, error=str(error))
+                    responses[index] = BranchResponse(
+                        prompt=prompt,
+                        content=None,
+                        error=str(error),
                     )
 
-        return responses
+        return [response for response in responses if response is not None]
