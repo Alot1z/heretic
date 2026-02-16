@@ -253,6 +253,21 @@ The development of Heretic was informed by:
   and ["norm-preserving biprojected abliteration"](https://huggingface.co/blog/grimjim/norm-preserving-biprojected-abliteration)
 
 
+## API intervention middleware
+
+Heretic now also ships a small provider-agnostic API middleware toolkit under
+`heretic.api_intervention` for teams building gateway services in front of hosted
+LLM APIs. It provides:
+
+* heuristic and embedding-based prompt risk analysis
+* compliance-oriented prompt reframing strategies
+* parallel branch dispatch
+* soft-refusal detection and semantic integrity scoring
+
+This package is designed for operational safety workflows (triage, observability,
+and defensive analysis), not for bypassing platform policy restrictions.
+
+
 ## Citation
 
 If you use Heretic for your research, please cite it using the following BibTeX entry:
