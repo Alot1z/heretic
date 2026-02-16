@@ -2,6 +2,36 @@
 
 # Heretic: Fully automatic censorship removal for language models<br><br>[![Discord](https://img.shields.io/discord/1447831134212984903?color=5865F2&label=discord&labelColor=black&logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/gdXc48gSyT) [![Follow us on Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/follow-us-on-hf-md-dark.svg)](https://huggingface.co/heretic-org)
 
+## Quick links
+
+* **GitHub Pages documentation/demo:** https://p-e-w.github.io/heretic/
+* **Repository:** https://github.com/p-e-w/heretic
+
+## What's new and why it was added
+
+Heretic now includes an **API intervention middleware toolkit** (`heretic.api_intervention`) for teams operating hosted LLM gateways. This was added to support practical operations workflows (triage, observability, and defensive analysis) where teams want reusable middleware building blocks around API calls.
+
+### API intervention components and functions
+
+* **Risk analysis**
+  * `HeuristicRiskAnalyzer.analyze(prompt)`
+  * `SemanticRiskAnalyzer.analyze(prompt, base_profile)`
+* **Prompt rewriting**
+  * `IntentRewriter.choose_primary_strategy(risk)`
+  * `IntentRewriter.generate(original_prompt, strategy)`
+  * `IntentRewriter.generate_branch_set(original_prompt, risk)`
+* **Parallel execution**
+  * `BranchExecutor.execute(prompts, call_api)`
+* **Verification and selection**
+  * `ResponseVerifier.detect_soft_refusal(response)`
+  * `ResponseVerifier.verify(original_prompt, branch_response)`
+  * `ResponseVerifier.select_best(original_prompt, responses)`
+* **End-to-end orchestration**
+  * `InterventionPipeline.analyze_risk(prompt)`
+  * `InterventionPipeline.run(prompt, call_api)`
+
+> These components are for defensive/compliance-oriented gateway engineering and documentation; they are not intended to bypass provider policies.
+
 Heretic is a tool that removes censorship (aka "safety alignment") from
 transformer-based language models without expensive post-training.
 It combines an advanced implementation of directional ablation, also known
