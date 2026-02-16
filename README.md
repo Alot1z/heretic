@@ -120,6 +120,16 @@ and the community has created and published
 Heretic models in addition to those.
 
 
+## Git workflow quick help (commit vs draft PR)
+
+If you can commit locally but only see a **Draft PR** on GitHub:
+
+1. `git status` should be clean after `git add` + `git commit`.
+2. `git push` must succeed for your branch.
+3. On GitHub, change PR state from **Draft** to **Ready for review**.
+
+A Draft PR is a review state on GitHub; it does **not** mean your commit failed.
+
 ## Usage
 
 Prepare a Python 3.10+ environment with PyTorch 2.2+ installed as appropriate
