@@ -2,6 +2,52 @@
 
 # Heretic: Fully automatic censorship removal for language models<br><br>[![Discord](https://img.shields.io/discord/1447831134212984903?color=5865F2&label=discord&labelColor=black&logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/gdXc48gSyT) [![Follow us on Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/follow-us-on-hf-md-dark.svg)](https://huggingface.co/heretic-org)
 
+## Quick links
+
+* **GitHub Pages documentation/demo:** https://p-e-w.github.io/heretic/
+* **Repository:** https://github.com/p-e-w/heretic
+* **API intervention source package:** `src/heretic/api_intervention/`
+
+## What's new and why it was added
+
+Heretic now includes an **API intervention middleware toolkit** (`heretic.api_intervention`) for teams operating hosted LLM gateways. This was added to support practical operations workflows (triage, observability, and defensive analysis) where teams want reusable middleware building blocks around API calls.
+
+In short, the new package exists to provide a clean, testable middleware layer for:
+
+* classifying prompt risk before an API call,
+* generating compliance-oriented rewrites when needed,
+* dispatching parallel prompt branches safely,
+* and selecting the best response with explicit verification rules.
+
+### API intervention components and functions
+
+* **Risk analysis**
+  * `HeuristicRiskAnalyzer.analyze(prompt)`
+  * `SemanticRiskAnalyzer.analyze(prompt, base_profile)`
+* **Prompt rewriting**
+  * `IntentRewriter.choose_primary_strategy(risk)`
+  * `IntentRewriter.generate(original_prompt, strategy)`
+  * `IntentRewriter.generate_branch_set(original_prompt, risk)`
+* **Parallel execution**
+  * `BranchExecutor.execute(prompts, call_api)`
+* **Verification and selection**
+  * `ResponseVerifier.detect_soft_refusal(response)`
+  * `ResponseVerifier.verify(original_prompt, branch_response)`
+  * `ResponseVerifier.select_best(original_prompt, responses)`
+* **End-to-end orchestration**
+  * `InterventionPipeline.analyze_risk(prompt)`
+  * `InterventionPipeline.run(prompt, call_api)`
+
+### Stop-slop design principles used in this package
+
+* **Deterministic behavior:** explicit thresholds and scoring paths.
+* **Small focused modules:** analyzer/rewriter/executor/verifier/pipeline split.
+* **Typed interfaces:** shared dataclasses for risk/branch/verification records.
+* **Composable integration:** pluggable embedding provider and API caller.
+* **Defensive framing:** middleware is documented for compliance-oriented workflows.
+
+> These components are for defensive/compliance-oriented gateway engineering and documentation; they are not intended to bypass provider policies.
+
 Heretic is a tool that removes censorship (aka "safety alignment") from
 transformer-based language models without expensive post-training.
 It combines an advanced implementation of directional ablation, also known
@@ -73,6 +119,16 @@ and the community has created and published
 [well over 1,000](https://huggingface.co/models?other=heretic)
 Heretic models in addition to those.
 
+
+## Git workflow quick help (commit vs draft PR)
+
+If you can commit locally but only see a **Draft PR** on GitHub:
+
+1. `git status` should be clean after `git add` + `git commit`.
+2. `git push` must succeed for your branch.
+3. On GitHub, change PR state from **Draft** to **Ready for review**.
+
+A Draft PR is a review state on GitHub; it does **not** mean your commit failed.
 
 ## Usage
 
@@ -251,6 +307,26 @@ The development of Heretic was informed by:
   as well as some details from the model cards of his own abliterated models (see above)
 * Jim Lai's articles describing ["projected abliteration"](https://huggingface.co/blog/grimjim/projected-abliteration)
   and ["norm-preserving biprojected abliteration"](https://huggingface.co/blog/grimjim/norm-preserving-biprojected-abliteration)
+
+
+## API intervention middleware
+
+Heretic now also ships a small provider-agnostic API middleware toolkit under
+`heretic.api_intervention` for teams building gateway services in front of hosted
+LLM APIs. It provides:
+
+* heuristic and embedding-based prompt risk analysis
+* compliance-oriented prompt reframing strategies
+* parallel branch dispatch
+* soft-refusal detection and semantic integrity scoring
+
+This package is designed for operational safety workflows (triage, observability,
+and defensive analysis), not for bypassing platform policy restrictions.
+
+A GitHub Pages companion site is included in `docs/` and is deployed by
+`.github/workflows/pages.yml` on pushes to `master`/`main` (or manual dispatch)
+to provide a browser-based walkthrough of the pipeline for documentation and
+onboarding.
 
 
 ## Citation
