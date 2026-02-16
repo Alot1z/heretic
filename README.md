@@ -313,9 +313,10 @@ LLM APIs. It provides:
 This package is designed for operational safety workflows (triage, observability,
 and defensive analysis), not for bypassing platform policy restrictions.
 
-A GitHub Pages companion site is included in `docs/` and can be deployed via
-`.github/workflows/pages.yml` to provide a browser-based walkthrough of the
-pipeline for documentation and onboarding.
+A GitHub Pages companion site is included in `docs/` and is deployed by
+`.github/workflows/pages.yml` on pushes to `master`/`main` (or manual dispatch)
+to provide a browser-based walkthrough of the pipeline for documentation and
+onboarding.
 
 
 ## Citation
