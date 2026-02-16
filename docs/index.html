@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heretic API Intervention Middleware</title>
+    <meta
+      name="description"
+      content="Interactive overview of Heretic's API intervention middleware for defensive LLM gateway workflows."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container">
+        <p class="eyebrow">HERETIC · API INTERVENTION</p>
+        <h1>GitHub Pages Technical Overview</h1>
+        <p class="lead">
+          A provider-agnostic middleware reference implementation for
+          <strong>risk triage</strong>, <strong>safe reframing</strong>,
+          <strong>parallel execution</strong>, and
+          <strong>response verification</strong>.
+        </p>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <h2>Pipeline</h2>
+        <ol class="pipeline-list">
+          <li><strong>Phase 1:</strong> Heuristic + semantic risk analysis</li>
+          <li><strong>Phase 2:</strong> Compliance-oriented intent reframing</li>
+          <li><strong>Phase 3:</strong> Parallel branch execution</li>
+          <li><strong>Phase 4:</strong> Soft-refusal detection + semantic scoring</li>
+        </ol>
+      </section>
+
+      <section class="card">
+        <h2>Interactive walkthrough</h2>
+        <label for="prompt">Example prompt</label>
+        <textarea id="prompt" rows="5" placeholder="Describe suspicious login detection architecture"></textarea>
+        <button id="analyze" type="button">Run demo analysis</button>
+
+        <div class="grid">
+          <article>
+            <h3>Risk profile</h3>
+            <pre id="risk">(waiting)</pre>
+          </article>
+          <article>
+            <h3>Rewrites</h3>
+            <pre id="rewrites">(waiting)</pre>
+          </article>
+          <article>
+            <h3>Verifier output</h3>
+            <pre id="verifier">(waiting)</pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Repository modules</h2>
+        <ul>
+          <li><code>src/heretic/api_intervention/analyzer.py</code></li>
+          <li><code>src/heretic/api_intervention/rewriter.py</code></li>
+          <li><code>src/heretic/api_intervention/executor.py</code></li>
+          <li><code>src/heretic/api_intervention/verifier.py</code></li>
+          <li><code>src/heretic/api_intervention/pipeline.py</code></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="container footer">
+      <p>
+        This page demonstrates defensive middleware concepts and does not provide
+        policy-bypass workflows.
+      </p>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
